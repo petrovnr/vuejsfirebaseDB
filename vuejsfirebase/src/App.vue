@@ -1,51 +1,51 @@
 <template>
-  <div id="app">
+<div id="app">
 
-<div class="container">
+  <div class="container">
 
-  <form class="form" v-on:sumbit.prevent="addBook">
-  <fieldset>
+    <form class="form" v-on:sumbit.prevent="addBook">
+      <fieldset>
 
-  <!-- Form Name -->
-  <h3>Добавить новую книгу</h3>
+        <!-- Form Name -->
+        <h3>Добавить новую книгу</h3>
 
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-12 control-label" for="textinput">Название:</label>
-    <div class="col-md-12">
-    <input type="text" id="bookTitle" class="form-control" v-model="newBook.title">
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="textinput">Название:</label>
+          <div class="col-md-12">
+            <input type="text" id="bookTitle" class="form-control" v-model="newBook.title">
 
-    </div>
-  </div>
+          </div>
+        </div>
 
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-12 control-label" for="textinput">Автор:</label>
-    <div class="col-md-12">
-    <input type="text" id="bookAuthor" class="form-control" v-model="newBook.author">
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="textinput">Автор:</label>
+          <div class="col-md-12">
+            <input type="text" id="bookAuthor" class="form-control" v-model="newBook.author">
 
-    </div>
-  </div>
+          </div>
+        </div>
 
-  <!-- Text input-->
-  <div class="form-group">
-    <label class="col-md-12 control-label" for="textinput">url:</label>
-    <div class="col-md-12">
-    <input type="text" id="bookUrl" class="form-control" v-model="newBook.url">
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="textinput">url: http://domain.zone</label>
+          <div class="col-md-12">
+            <input type="text" id="bookUrl" class="form-control" v-model="newBook.url">
 
-    </div>
-  </div>
+          </div>
+        </div>
 
-  <!-- Button -->
-  <div class="form-group">
-    <label class="col-md-12 control-label" for="singlebutton"></label>
-    <div class="col-md-12">
-      <button class="btn btn-primary pull-center" @click.prevent="addBook">Добавить</button>
-    </div>
-  </div>
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="singlebutton"></label>
+          <div class="col-md-12">
+            <button class="btn btn-primary pull-center" @click.prevent="addBook">Добавить</button>
+          </div>
+        </div>
 
-  </fieldset>
-  </form>
+      </fieldset>
+    </form>
 
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -67,23 +67,24 @@
             </tr>
           </thead>
           <tbody>
-             <tr v-for="book in books">
-               <td>
-                 <a v-bind:href="book.url">{{book.title}}</a>
-               </td>
-               <td>
-                 {{book.author}}
-               </td>
-               <td>
-                 <span class="badge badge-pill badge-danger" @click="removeBook(book)">Удалить</span>
-               </td>
-             </tr>
+            <tr v-for="book in books">
+              <td>
+                <a target="_blank" v-bind:href="book.url">{{book.title}}</a>
+              </td>
+              <td>
+                {{book.author}}
+              </td>
+              <td>
+                <span class="badge badge-pill badge-danger" @click="removeBook(book)">Удалить</span>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
   </div>
+</div>
 </template>
 
 <script>
@@ -94,11 +95,11 @@ import toastr from 'toastr'
 import Firebase from 'firebase' // Изициализировали объект
 
 let config = {
-    apiKey: "AIzaSyCovL0QsHsgHXCoPU5Irw26qjjoso5H5Tg",
-    authDomain: "booklist-fe599.firebaseapp.com",
-    databaseURL: "https://booklist-fe599.firebaseio.com",
-    storageBucket: "booklist-fe599.appspot.com",
-    messagingSenderId: "37507968873"
+  apiKey: "AIzaSyCovL0QsHsgHXCoPU5Irw26qjjoso5H5Tg",
+  authDomain: "booklist-fe599.firebaseapp.com",
+  databaseURL: "https://booklist-fe599.firebaseio.com",
+  storageBucket: "booklist-fe599.appspot.com",
+  messagingSenderId: "37507968873"
 } // Залогинились
 
 let app = Firebase.initializeApp(config); // API логин
@@ -120,20 +121,19 @@ export default {
     }
   },
   methods: {
-    addBook: function () {
+    addBook: function() {
       booksRef.push(this.newBook);
       this.newBook.title = '';
       this.newBook.author = '';
       this.newBook.url = '';
     },
-    removeBook: function(book){
+    removeBook: function(book) {
       booksRef.child(book['.key']).remove();
       toastr.success("Книга успешно удалена!");
     }
   }
 
 }
-
 </script>
 
 <style>
